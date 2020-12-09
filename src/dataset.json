@@ -1,5 +1,5 @@
-const defaultDataset = {
-  "self-Analysis": {
+{
+  "Self-Analysis": {
     "contents": [
       {"list": "小学生", "text": "すごく楽しかった"},
       {"list": "中学生", "text": ""},
@@ -8,7 +8,7 @@ const defaultDataset = {
       {"list": "趣味", "text": ""},
       {"list": "スキル", "text": ""},
       {"list": "この先やってみたいこと", "text": ""},
-      {"list": "自己紹介", "text": ""},
+      {"list": "自己紹介", "text": ""}
     ]
   },
   "wantedly": { 
@@ -18,17 +18,15 @@ const defaultDataset = {
       {"list": "この先やってみたいこと", "text": ""},
       {"list": "学歴", "text": ""},
       {"list": "学生時代に頑張ったこと", "text": ""},
-      {"list": "職歴", "text": ""},
+      {"list": "職歴", "text": ""}
     ]
   },
-  "Green": {
+  "green": {
     "contents": [
       {"list": "基本情報", "text": ""},
       {"list": "職務経歴 （職務要約）", "text": ""},
       {"list": "職務経歴 （職歴詳細）", "text": ""},
-      {"list": "自己ＰＲ", "text": ""},
+      {"list": "自己ＰＲ", "text": ""}
     ]
-  },
+  }
 }
-
-export default defaultDataset

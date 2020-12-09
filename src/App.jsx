@@ -1,14 +1,14 @@
 import React from 'react';
 import './styles/App.css';
-import defaultDataset from './dataset';
 import {NavBar, CategoryBox} from './components/index';
+import {db} from './firebase/index';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataset: defaultDataset,
-      genre: "self-Analysis",
+      dataset: {},
+      genre: "",
       contents: [],
     }
     this.handleOnClick = this.handleOnClick.bind(this)
@@ -16,20 +16,22 @@ export default class App extends React.Component {
     this.getText = this.getText.bind(this);
   };
 
-  selectGenre(selectedGenre ){
-    const genre = selectedGenre
+  selectGenre(selectGenre){
+    const genre = this.state.dataset[selectGenre]
     const contents = genre.contents
     this.setState({
+      genre: selectGenre,
       contents: contents
     })
   };
 
   handleOnClick(name) {
     const genre = name
-    this.selectGenre(this.state.dataset[genre])
+    this.selectGenre(genre)
   };
 
   addBox(list){
+    if (!list) return
     const contents = this.state.contents
     contents.push({
       "list": list,
@@ -41,15 +43,47 @@ export default class App extends React.Component {
   }
 
   getText(text, list){
+    // (async() => {
+    //   const contents = this.state.contents
+    //   contents[list].text = text
+    //   const genre = this.state.genre
+    //   await db
+    //   .collection('genres')
+    //   .doc(genre)
+    //   .set({
+    //     contents: contents
+    //   })
+    // })()
+
     const contents = this.state.contents
     contents[list].text = text
+    const genre = this.state.genre
     this.setState({
       contents: contents
     })
   }
 
+  initDataset = (dataset) => {
+    this.setState({
+      dataset: dataset
+    })
+  }
+
   componentDidMount(){
-    this.selectGenre(this.state.dataset[this.state.genre])
+    (async() => {
+      const dataset = this.state.dataset;
+
+      await db.collection('genres').get().then((snapshots) => {
+        snapshots.forEach(doc => {
+          const id = doc.id
+          const data = doc.data()
+          dataset[id] = data
+        })
+      })
+      this.initDataset(dataset)
+      const initGenre = "Self-Analysis"
+      this.selectGenre(initGenre)
+    })()
   };
 
   render(){
@@ -64,4 +98,3 @@ export default class App extends React.Component {
     );
   };
 }
-

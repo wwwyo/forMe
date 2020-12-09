@@ -57,7 +57,7 @@ const Box = (props) => {
       className={classes.paper}
       onClick={handleClickOpen}
     >
-      {props.list}
+      {props.list.replace(/\n/g, "</br>")}
     </Paper>      
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">{props.list}</DialogTitle>
